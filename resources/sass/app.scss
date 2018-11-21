@@ -1,0 +1,196 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+.navbar-laravel {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+.container {
+    margin: 0;
+    padding: 0;
+}
+.page-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    padding: 5px;
+    z-index: 9999;
+    &.dark {
+        background-color: $dark;
+    }
+    &.dark-lighter {
+        background-color: $dark-lighter;
+    }
+    p {
+        margin: 0;
+        line-height: 30px;
+        &.bold {
+            font-weight: bold;
+        }
+        &.normal {
+            font-weight: 300;
+            font-size: 10px;
+        }
+    }
+    i {
+        font-size: 30px;
+    }
+}
+.shops {
+    height: 100vh;
+    background-color: $dark;
+}
+.shop-list {
+    background-color: $dark;
+    display: flex;
+    flex-wrap: wrap;
+}
+.shop-card {
+    flex: 1;
+    text-align: center;
+    margin-top: 10px;
+    img {
+        height: 18vh;
+    }
+    .tag-wrapper {
+        margin-top: 5px;
+        display: flex;
+        padding: 2px 15px;
+        .tag-green,
+        .tag-red {
+            font-size: 10px;
+            color: white;
+            margin-right: 4px;
+            border-radius: 2px;
+            padding: 0px 4px;
+        }
+        .tag-red {
+            background-color: $red;
+        }
+        .tag-green {
+            background-color: $green;
+        }
+    }
+    .text-infos {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        color: white;
+        padding: 2px 15px;
+        .text-info_title {
+            text-align: left;
+        }
+        .text-info_details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+        }
+    }
+}
+.products {
+    min-height: 100vh;
+    background-color: $dark;
+    .menu {
+        table {
+            width: 95vw;
+            color: white;
+            margin: auto;
+            margin-top: 10px;
+            tr {
+                display: flex;
+                justify-content: space-around;
+            }
+            td {
+                flex: 1;
+                text-align: center;
+                padding: 3px 0px;
+                border: 1px solid $yellow;
+                font-size: 12px;
+                &.menu-head {
+                    border-top-left-radius: $border-radius;
+                    border-bottom-left-radius: $border-radius;
+                }
+                &.menu-middle {
+                    border-left: none;
+                }
+                &.menu-end {
+                    border-top-right-radius: $border-radius;
+                    border-bottom-right-radius: $border-radius;
+                    border-left: none;
+                }
+            }
+        }
+    }
+    .main {
+        display: flex;
+    }
+    .category-list {
+        width: 20vw;
+        color: white;
+        margin-top: 20px;
+        .category-list-item {
+            padding: 10px;
+            font-size: 12px;
+            background-color: $categoryList;
+            border-bottom: 1px solid $categoryListDivider;
+        }
+    }
+    .product-list {
+        width: 80vw;
+        color: white;
+        margin-top: 20px;
+        padding-left: 10px;
+        .product-card {
+            margin-top: 20px;
+            display: flex;
+            .img-wrapper {
+                img {
+                    width: 80px;
+                }
+            }
+            .control {
+                flex: 1;
+                padding: 0px 10px;
+                padding-right: 25px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                .text-information_title {
+                    font-size: 12px;
+                    line-height: 12px;
+                }
+                .control-pannel {
+                    display: flex;
+                    justify-content: space-between;
+                    height: 18px;
+                    i {
+                        color: $dark;
+                        background-color: $yellow;
+                        border-radius: 50%;
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.carousel img {
+    height: 15vh;
+}
+
+.banner img {
+    width: 100%;
+    height: 27vh;
+    transform: scaleX(1.2);
+}
