@@ -14,29 +14,34 @@ require("./bootstrap");
 
 import ReactDOM from "react-dom";
 import React, { Component } from "react";
-import { Switch, Route, BrowserRouter } from "react-router-dom";
+import { Switch, Route, BrowserRouter as Router, Link } from "react-router-dom";
 
 import Shops from "./components/Shops";
 import Products from "./components/Products";
 
 export default class App extends Component {
     render() {
-        return (
-            <div>
-                <Switch>
-                    <Route path="/" component={Products} />
-                    <Route path="/s" component={Shops} />
-                </Switch>
-            </div>
-        );
+        return <div />;
     }
 }
 
 if (document.getElementById("root")) {
     ReactDOM.render(
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>,
+        <Router>
+            <div>
+                <Route
+                    exact
+                    path="/groupbuy/public/shops/:product_id"
+                    component={Shops}
+                />
+                <Route
+                    exact
+                    path="/groupbuy/public/products"
+                    component={Products}
+                />
+                <Route exact path="/groupbuy/public/" component={Products} />
+            </div>
+        </Router>,
         document.getElementById("root")
     );
 }

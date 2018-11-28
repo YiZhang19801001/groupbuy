@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class Header extends Component {
     constructor(props) {
@@ -15,7 +16,9 @@ export default class Header extends Component {
     render() {
         return (
             <div className={`page-header ${this.state.backgroundClass}`}>
-                <i className="material-icons">chevron_left</i>
+                <Link to="/groupbuy/public/products">
+                    <i className="material-icons">chevron_left</i>
+                </Link>
                 <p className={this.state.textClass}>{this.props.text}</p>
                 <i className="material-icons">close</i>
             </div>

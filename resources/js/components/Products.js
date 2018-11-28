@@ -4,22 +4,24 @@ import CategoryList from "./CategoryList";
 import ProductList from "./ProductList";
 import ShopCart from "./ShopCart";
 import Header from "./Header";
+import SlideShow from "./SlideShow";
 
 export default class Products extends Component {
     render() {
         return (
             <div className="products">
                 <Header
-                    text="君隆超市"
+                    text="天府川菜馆"
                     textClass="bold"
                     backgroundClass="dark-lighter"
                 />
-                <div className="banner">
+                <SlideShow />
+                {/* <div className="banner">
                     <img
-                        src="/groupbuy/public/images/shop_2.png"
-                        alt="shop 2"
+                        src="/groupbuy/public/images/banner.png"
+                        alt="天府川菜馆"
                     />
-                </div>
+                </div> */}
                 <div className="menu">
                     <table>
                         <thead>
@@ -36,7 +38,7 @@ export default class Products extends Component {
                     <CategoryList />
                     <ProductList />
                 </div>
-                <ShopCart />
+                <ShopCart btn_text="确认付款" />
             </div>
         );
     }

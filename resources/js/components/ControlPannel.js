@@ -1,23 +1,25 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class ControlPannel extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { price: 0, quantity: 0 };
+        this.state = { sold: 0, quantity: 0, product_id: 0 };
     }
 
     componentDidMount() {
         this.setState({
-            price: this.props.product_price,
-            quantity: this.props.quantity
+            sold: this.props.product_sold,
+            quantity: this.props.quantity,
+            product_id: this.props.product_id
         });
     }
 
     render() {
         return (
             <div className="control-pannel">
-                <span className="price">{this.state.price}</span>
+                <span className="sold">SOLD: {this.state.sold}</span>
                 {this.state.quantity > 0 ? (
                     <div>
                         <i className="material-icons">remove</i>
@@ -26,7 +28,13 @@ export default class ControlPannel extends Component {
                     </div>
                 ) : (
                     <div>
-                        <i className="material-icons">add</i>
+                        <Link
+                            to={`/groupbuy/public/shops/${
+                                this.state.product_id
+                            }`}
+                        >
+                            <i className="material-icons">add</i>
+                        </Link>
                     </div>
                 )}
             </div>

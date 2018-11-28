@@ -1,56 +1,19 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 import ProductCard from "./ProductCard";
 export default class ProductList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { fake_productList: [] };
+        axios.get("/groupbuy/public/api/getproducts").then(res => {
+            this.setState({ fake_productList: res.data });
+        });
+    }
     render() {
-        const fake_productList = [
-            {
-                category_id: 1,
-                category_name: "家常菜",
-                products: [
-                    {
-                        product_id: 1,
-                        product_name: "招牌羊蝎子",
-                        product_price: "$19.77",
-                        img_url: "/groupbuy/public/images/product.png"
-                    },
-                    {
-                        product_id: 2,
-                        product_name: "上海红烧肉",
-                        product_price: "$25.89",
-                        img_url: "/groupbuy/public/images/product.png"
-                    },
-                    {
-                        product_id: 3,
-                        product_name: "四川回锅肉",
-                        product_price: "$21.19",
-                        img_url: "/groupbuy/public/images/product.png"
-                    },
-                    {
-                        product_id: 4,
-                        product_name: "宫保鸡丁",
-                        product_price: "$18.83",
-                        img_url: "/groupbuy/public/images/product.png"
-                    },
-                    {
-                        product_id: 5,
-                        product_name: "鱼香肉丝",
-                        product_price: "$18.83",
-                        img_url: "/groupbuy/public/images/product.png"
-                    },
-                    {
-                        product_id: 6,
-                        product_name: "辣子鸡丁",
-                        product_price: "$19.77",
-                        img_url: "/groupbuy/public/images/product.png"
-                    }
-                ]
-            }
-        ];
-
         return (
             <div>
-                {fake_productList.map(item => {
+                {this.state.fake_productList.map(item => {
                     return (
                         <div key={item.category_name} className="product-list">
                             <span className="category-title">

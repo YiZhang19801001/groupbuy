@@ -1,5 +1,6 @@
 import faker from "faker";
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import DateTag from "./DateTag";
 
@@ -24,10 +25,12 @@ export default class ShopCard extends Component {
     render() {
         return (
             <div className="shop-card">
-                <img
-                    src={this.props.shop.image_url}
-                    alt={this.state.shop.name}
-                />
+                <Link to="/groupbuy/public/products">
+                    <img
+                        src={this.props.shop.image_url}
+                        alt={this.state.shop.name}
+                    />
+                </Link>
                 <div className="tag-wrapper">
                     {this.state.shop.valid_date.map(validDate => {
                         return (
@@ -47,7 +50,7 @@ export default class ShopCard extends Component {
                             {this.state.shop.distance}
                         </div>
                         <div className="text-info_description">
-                            {this.state.shop.description}
+                            {this.state.shop.address}
                         </div>
                     </div>
                 </div>

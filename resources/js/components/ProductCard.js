@@ -14,11 +14,15 @@ export default class ProductCard extends Component {
                 </div>
                 <div className="control">
                     <span className="text-information_title">
-                        {this.props.product.product_name}
+                        <span>{this.props.product.product_name}</span>
+                        <span>{this.props.product.product_price}</span>
                     </span>
-
+                    <span className="text-information_description">
+                        {this.props.product.product_description}
+                    </span>
                     <ControlPannel
-                        product_price={this.props.product.product_price}
+                        product_id={this.props.product.product_id}
+                        product_sold={this.props.product.product_sold}
                         quantity={0}
                     />
                 </div>

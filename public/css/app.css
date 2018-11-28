@@ -10472,6 +10472,11 @@ a.text-dark:focus {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+html,
+body {
+  background-color: #111214;
+}
+
 .container {
   margin: 0;
   padding: 0;
@@ -10488,7 +10493,7 @@ a.text-dark:focus {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  color: white;
+  color: #fff;
   padding: 5px;
   z-index: 9999;
 }
@@ -10517,6 +10522,7 @@ a.text-dark:focus {
 
 .page-header i {
   font-size: 30px;
+  color: white;
 }
 
 .shops {
@@ -10556,7 +10562,7 @@ a.text-dark:focus {
 .shop-card .tag-wrapper .tag-green,
 .shop-card .tag-wrapper .tag-red {
   font-size: 10px;
-  color: white;
+  color: #fff;
   margin-right: 4px;
   border-radius: 2px;
   padding: 0px 4px;
@@ -10580,7 +10586,7 @@ a.text-dark:focus {
           flex-direction: column;
   -ms-flex-pack: distribute;
       justify-content: space-around;
-  color: white;
+  color: #fff;
   padding: 2px 15px;
 }
 
@@ -10605,7 +10611,7 @@ a.text-dark:focus {
 
 .products .menu table {
   width: 95vw;
-  color: white;
+  color: #fff;
   margin: auto;
   margin-top: 10px;
 }
@@ -10651,7 +10657,7 @@ a.text-dark:focus {
 
 .products .category-list {
   width: 20vw;
-  color: white;
+  color: #fff;
   margin-top: 20px;
 }
 
@@ -10664,7 +10670,7 @@ a.text-dark:focus {
 
 .products .product-list {
   width: 80vw;
-  color: white;
+  color: #fff;
   margin-top: 20px;
   padding-left: 10px;
 }
@@ -10701,6 +10707,18 @@ a.text-dark:focus {
 .products .product-list .product-card .control .text-information_title {
   font-size: 12px;
   line-height: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.products .product-list .product-card .control .text-information_description {
+  font-size: 10px;
+  line-height: 10px;
+  color: #767779;
 }
 
 .products .product-list .product-card .control .control-pannel {
@@ -10720,8 +10738,51 @@ a.text-dark:focus {
   font-size: 18px;
 }
 
+.products .product-list .product-card .control .control-pannel .sold {
+  color: #38c172;
+}
+
+.shop-cart {
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100vw;
+  bottom: 0;
+  left: 0;
+  height: 35px;
+}
+
+.shop-cart i {
+  position: absolute;
+  color: #fed032;
+  border: 4px solid #fed032;
+  border-radius: 50%;
+  padding: 5px;
+  bottom: 6px;
+  left: 18px;
+  background-color: #111214;
+}
+
+.shop-cart .left {
+  width: 80%;
+  background-color: #fed032;
+}
+
+.shop-cart .right {
+  width: 20%;
+  background-color: #fff;
+  text-align: center;
+  line-height: 35px;
+}
+
 .carousel img {
   height: 15vh;
+}
+
+.banner {
+  width: 100vw;
+  overflow: hidden;
 }
 
 .banner img {
