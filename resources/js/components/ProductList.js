@@ -5,11 +5,14 @@ import ProductCard from "./ProductCard";
 export default class ProductList extends Component {
     constructor(props) {
         super(props);
-        this.state = { fake_productList: [] };
+        this.state = {
+            fake_productList: []
+        };
         axios.get("/groupbuy/public/api/getproducts").then(res => {
             this.setState({ fake_productList: res.data });
         });
     }
+
     render() {
         return (
             <div>
@@ -22,6 +25,12 @@ export default class ProductList extends Component {
                             {item.products.map(product => {
                                 return (
                                     <ProductCard
+                                        shoppingCartList={
+                                            this.props.shoppingCartList
+                                        }
+                                        updateShopCartList={
+                                            this.props.updateShopCartList
+                                        }
                                         key={product.product_name}
                                         product={product}
                                     />

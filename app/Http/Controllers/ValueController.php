@@ -126,16 +126,27 @@ class ValueController extends Controller
         ];
         //create container
         $shops = array();
-        $fake_shop_product_table = ["1"=>["1","2","3"],"2"=>["2","3","4"],"3"=>["3","4","5"],"4"=>["4","5","6"]];
-        foreach ($fake_shop_product_table as $key => $value) {
-            if(in_array($product_id,$value)){
-                foreach($fake_shops as $shop){
-                    if($shop["shop_id"]==$key)
-                    {
-                        array_push($shops,$shop);
+        // shop_id hasMany({product_id,product_sold})
+        $fake_shop_product_table = [
+            "1"=>[["1",222],["2",222],["3",222]],
+            "2"=>[["2",333],["3",333],["4",333]],
+            "3"=>[["3",444],["4",444],["5",444]],
+            "4"=>[["4",555],["5",555],["6",555]]
+        ];
+        foreach ($fake_shop_product_table as $key => $value) { //["product_id","sold in this shop"]
+            foreach ($value as $item) {
+                if($item[0]==$product_id){ // if product_id match
+                    foreach($fake_shops as $shop){ // found shop
+                        if($shop["shop_id"]==$key)
+                        {
+                            $shop["sold"]=$item[1]; // add one property to shop obj
+                            array_push($shops,$shop);
+                        }
                     }
+
                 }
             }
+
         }
 
         return response()->json($shops,200);

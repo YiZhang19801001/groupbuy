@@ -14,34 +14,79 @@ require("./bootstrap");
 
 import ReactDOM from "react-dom";
 import React, { Component } from "react";
-import { Switch, Route, BrowserRouter as Router, Link } from "react-router-dom";
+import { Route, BrowserRouter as Router } from "react-router-dom";
 
-import Shops from "./components/Shops";
 import Products from "./components/Products";
+import ShopCart from "./components/ShopCart";
+import Confirm from "./components/Confirm";
 
 export default class App extends Component {
+    constructor(props) {
+        super(props);
+
+        // if (localStorage.getItem("aupos_shoppingCart")) {
+        //     this.state = {
+        //         shopping_cart: localStorage.getItem("aupos_shoppingCart")
+        //     };
+        // } else {
+        //     this.state = { shopping_cart: [] };
+        // }
+        this.state = { shopping_cart_list: [] };
+
+        this.updateShopCartList = this.updateShopCartList.bind(this);
+    }
+
+    updateShopCartList(newList) {
+        this.setState({ shopping_cart_list: newList });
+    }
     render() {
-        return <div />;
+        return (
+            <Router>
+                <div>
+                    <Route
+                        exact
+                        path="/groupbuy/public/products"
+                        render={props => (
+                            <Products
+                                updateShopCartList={this.updateShopCartList}
+                                shoppingCartList={this.state.shopping_cart_list}
+                                {...props}
+                            />
+                        )}
+                    />
+                    <Route
+                        exact
+                        path="/groupbuy/public/"
+                        render={props => (
+                            <Products
+                                updateShopCartList={this.updateShopCartList}
+                                shoppingCartList={this.state.shopping_cart_list}
+                                {...props}
+                            />
+                        )}
+                    />
+                    <Route
+                        exact
+                        path="/groupbuy/public/confirm"
+                        render={props => (
+                            <Confirm
+                                updateShopCartList={this.updateShopCartList}
+                                shoppingCartList={this.state.shopping_cart_list}
+                                {...props}
+                            />
+                        )}
+                    />
+
+                    <ShopCart
+                        updateShopCartList={this.updateShopCartList}
+                        shoppingCartList={this.state.shopping_cart_list}
+                    />
+                </div>
+            </Router>
+        );
     }
 }
 
 if (document.getElementById("root")) {
-    ReactDOM.render(
-        <Router>
-            <div>
-                <Route
-                    exact
-                    path="/groupbuy/public/shops/:product_id"
-                    component={Shops}
-                />
-                <Route
-                    exact
-                    path="/groupbuy/public/products"
-                    component={Products}
-                />
-                <Route exact path="/groupbuy/public/" component={Products} />
-            </div>
-        </Router>,
-        document.getElementById("root")
-    );
+    ReactDOM.render(<App />, document.getElementById("root"));
 }

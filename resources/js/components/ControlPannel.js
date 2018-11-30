@@ -1,41 +1,35 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import NavigateControlPannel from "./NavigateControlPannel";
+import QuantityControlPannel from "./QuantityControlPannel";
 
 export default class ControlPannel extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { sold: 0, quantity: 0, product_id: 0 };
-    }
-
-    componentDidMount() {
-        this.setState({
-            sold: this.props.product_sold,
-            quantity: this.props.quantity,
-            product_id: this.props.product_id
-        });
+        this.state = {
+            sold: this.props.sold,
+            quantity: this.props.quantity || 0,
+            product: this.props.product,
+            mode: this.props.mode
+        };
     }
 
     render() {
         return (
             <div className="control-pannel">
                 <span className="sold">SOLD: {this.state.sold}</span>
-                {this.state.quantity > 0 ? (
-                    <div>
-                        <i className="material-icons">remove</i>
-                        <span>{this.state.quantity}</span>
-                        <i className="material-icons">add</i>
-                    </div>
+                {this.state.mode === 1 ? (
+                    <QuantityControlPannel
+                        product={this.state.product}
+                        shoppingCartList={this.props.shoppingCartList}
+                        updateShopCartList={this.props.updateShopCartList}
+                        mode={1}
+                        quantity={this.state.quantity}
+                    />
                 ) : (
-                    <div>
-                        <Link
-                            to={`/groupbuy/public/shops/${
-                                this.state.product_id
-                            }`}
-                        >
-                            <i className="material-icons">add</i>
-                        </Link>
-                    </div>
+                    <NavigateControlPannel
+                        product_id={this.state.product.product_id}
+                    />
                 )}
             </div>
         );

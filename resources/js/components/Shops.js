@@ -3,6 +3,7 @@ import axios from "axios";
 
 import Header from "./Header";
 import ShopCard from "./ShopCard";
+import ShopCart from "./ShopCartButton";
 export default class Shops extends Component {
     constructor(props) {
         super(props);

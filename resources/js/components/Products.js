@@ -2,11 +2,14 @@ import React, { Component } from "react";
 
 import CategoryList from "./CategoryList";
 import ProductList from "./ProductList";
-import ShopCart from "./ShopCart";
 import Header from "./Header";
 import SlideShow from "./SlideShow";
 
 export default class Products extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <div className="products">
@@ -15,6 +18,7 @@ export default class Products extends Component {
                     textClass="bold"
                     backgroundClass="dark-lighter"
                 />
+                <div style={{ height: "40px" }} />
                 <SlideShow />
                 {/* <div className="banner">
                     <img
@@ -36,9 +40,11 @@ export default class Products extends Component {
                 </div>
                 <div className="main">
                     <CategoryList />
-                    <ProductList />
+                    <ProductList
+                        updateShopCartList={this.props.updateShopCartList}
+                        shoppingCartList={this.props.shoppingCartList}
+                    />
                 </div>
-                <ShopCart btn_text="确认付款" />
             </div>
         );
     }

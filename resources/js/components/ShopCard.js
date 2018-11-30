@@ -1,36 +1,21 @@
 import faker from "faker";
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 
 import DateTag from "./DateTag";
+import ControlPannel from "./ControlPannel";
 
 export default class ShopCard extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            shop: {
-                name: "",
-                distance: "",
-                valid_date: [],
-                image_url: "",
-                description: ""
-            }
+            shop: this.props.shop
         };
     }
 
-    componentDidMount() {
-        this.setState({ shop: this.props.shop });
-    }
     render() {
         return (
             <div className="shop-card">
-                <Link to="/groupbuy/public/products">
-                    <img
-                        src={this.props.shop.image_url}
-                        alt={this.state.shop.name}
-                    />
-                </Link>
                 <div className="tag-wrapper">
                     {this.state.shop.valid_date.map(validDate => {
                         return (
@@ -46,14 +31,19 @@ export default class ShopCard extends Component {
                         {this.state.shop.name}
                     </div>
                     <div className="text-info_details">
-                        <div className="text-info_distance">
+                        {/* <div className="text-info_distance">
                             {this.state.shop.distance}
-                        </div>
+                        </div> */}
                         <div className="text-info_description">
                             {this.state.shop.address}
                         </div>
                     </div>
                 </div>
+                <ControlPannel
+                    sold={this.state.shop.sold}
+                    mode={1}
+                    quantity={1}
+                />
             </div>
         );
     }

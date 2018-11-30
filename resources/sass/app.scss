@@ -29,6 +29,7 @@ body {
     color: $white;
     padding: 5px;
     z-index: 9999;
+    height: 40px;
     &.dark {
         background-color: $dark;
     }
@@ -58,10 +59,10 @@ body {
 .shop-list {
     background-color: $dark;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 .shop-card {
-    flex: 1;
     text-align: center;
     margin-top: 10px;
     img {
@@ -100,6 +101,9 @@ body {
             justify-content: space-between;
             font-size: 10px;
         }
+    }
+    .control-pannel {
+        padding: 2px 15px;
     }
 }
 .products {
@@ -155,6 +159,8 @@ body {
         color: $white;
         margin-top: 20px;
         padding-left: 10px;
+        overflow: scroll;
+        padding-bottom: 50px;
         .product-card {
             margin-top: 20px;
             display: flex;
@@ -181,31 +187,17 @@ body {
                     line-height: 10px;
                     color: $darkSubtitle;
                 }
-                .control-pannel {
-                    display: flex;
-                    justify-content: space-between;
-                    height: 18px;
-                    i {
-                        color: $dark;
-                        background-color: $yellow;
-                        border-radius: 50%;
-                        font-size: 18px;
-                    }
-                    .sold {
-                        color: $green;
-                    }
-                }
             }
         }
     }
 }
-.shop-cart {
+.shop-cart-button {
     position: fixed;
     display: flex;
     width: 100vw;
     bottom: 0;
     left: 0;
-    height: 35px;
+    height: 30px;
     i {
         position: absolute;
         color: $yellow;
@@ -226,6 +218,10 @@ body {
         text-align: center;
         line-height: 35px;
     }
+    .total-price {
+        padding-top: 5px;
+        margin-left: 65px;
+    }
 }
 
 .carousel img {
@@ -239,4 +235,114 @@ body {
     width: 100%;
     height: 27vh;
     transform: scaleX(1.2);
+}
+.control-pannel {
+    display: flex;
+    justify-content: space-between;
+    height: 18px;
+    .quantity-control-pannel {
+        color: $white;
+        display: flex;
+        height: 18px;
+
+        i {
+            color: $dark;
+            background-color: $yellow;
+            border-radius: 50%;
+            font-size: 18px;
+        }
+        .quantity {
+            width: 18px;
+            line-height: 18px;
+            text-align: center;
+        }
+    }
+
+    .sold {
+        color: $green;
+    }
+    .navigate-control-pannel {
+        background-color: $yellow;
+        color: $dark;
+        border-radius: 5px;
+        font-size: 10px;
+        padding: 3px;
+    }
+}
+
+.shopping-cart-list {
+    width: 100%;
+    min-height: 300px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: $white;
+    background-color: $dark;
+    .header {
+        display: flex;
+        justify-content: space-between;
+        padding: 2px 15px;
+        height: 27px;
+        box-shadow: 1px 1px 1px black;
+        margin-bottom: 10px;
+        .header-text {
+            flex: 6;
+            text-align: center;
+        }
+    }
+}
+
+.quantity-control-pannel {
+    color: $white;
+    display: flex;
+    height: 18px;
+
+    i {
+        color: $dark;
+        background-color: $yellow;
+        border-radius: 50%;
+        font-size: 18px;
+    }
+    .quantity {
+        width: 18px;
+        line-height: 18px;
+        text-align: center;
+    }
+}
+
+.shopping-cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 15px;
+    height: 90px;
+    font-size: 12px;
+    box-shadow: 1px 1px 1px $categoryListDivider;
+    .item-name {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        line-height: 90px;
+        flex: 3;
+    }
+    .item-price-quantity {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: right;
+        .quantity-control-pannel {
+            justify-content: flex-end;
+        }
+    }
+}
+
+.confirm {
+    color: $white;
+}
+
+.pickup-address {
+    padding: 5px 15px;
+    margin-bottom: 10px;
+    box-shadow: 1px 1px 1px $categoryListDivider;
+    background-color: $darkSubtitle;
 }
