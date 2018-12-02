@@ -19,18 +19,12 @@ import { Route, BrowserRouter as Router } from "react-router-dom";
 import Products from "./components/Products";
 import ShopCart from "./components/ShopCart";
 import Confirm from "./components/Confirm";
+import Section from "./components/demo/Section";
 
 export default class App extends Component {
     constructor(props) {
         super(props);
 
-        // if (localStorage.getItem("aupos_shoppingCart")) {
-        //     this.state = {
-        //         shopping_cart: localStorage.getItem("aupos_shoppingCart")
-        //     };
-        // } else {
-        //     this.state = { shopping_cart: [] };
-        // }
         this.state = { shopping_cart_list: [] };
 
         this.updateShopCartList = this.updateShopCartList.bind(this);
@@ -70,6 +64,17 @@ export default class App extends Component {
                         path="/groupbuy/public/confirm"
                         render={props => (
                             <Confirm
+                                updateShopCartList={this.updateShopCartList}
+                                shoppingCartList={this.state.shopping_cart_list}
+                                {...props}
+                            />
+                        )}
+                    />
+                    <Route
+                        exact
+                        path="/groupbuy/public/demo"
+                        render={props => (
+                            <Section
                                 updateShopCartList={this.updateShopCartList}
                                 shoppingCartList={this.state.shopping_cart_list}
                                 {...props}

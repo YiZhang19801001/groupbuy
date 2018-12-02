@@ -16,8 +16,7 @@ export default class ShopCartButton extends Component {
     getPrice() {
         let totalPrice = 0;
         this.state.shopping_cart_list.map(item => {
-            const price = parseFloat(item.product_price.substring(1));
-            totalPrice += item.quantity * price;
+            totalPrice += item.quantity * item.price;
         });
         totalPrice = Math.round(totalPrice * 100) / 100;
         return totalPrice;

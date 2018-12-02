@@ -23,20 +23,18 @@ export default class ShoppingCartItem extends Component {
         return (
             <div className="shopping-cart-item">
                 <div className="item-name">
-                    <span>{this.state.item.product_name}</span>
+                    <span>{this.state.item.name}</span>
                 </div>
                 <div className="item-price-quantity">
-                    <span className="item-price">
-                        {this.state.item.product_price}
-                    </span>
+                    <span className="item-price">{this.state.item.price}</span>
                     <QuantityControlPannel
                         quantity={this.state.item.quantity}
                         increase={this.increase}
                         decrease={this.decrease}
                         mode={2}
-                        key={`${this.state.item.product_name}${
-                            this.state.item.product_price
-                        }${this.props.index}`}
+                        key={`${this.state.item.name}${this.state.item.price}${
+                            this.props.index
+                        }`}
                     />
                 </div>
             </div>

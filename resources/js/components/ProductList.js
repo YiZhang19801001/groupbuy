@@ -1,26 +1,32 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import ProductCard from "./ProductCard";
 export default class ProductList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fake_productList: []
+            productList: []
         };
-        axios.get("/groupbuy/public/api/getproducts").then(res => {
-            this.setState({ fake_productList: res.data });
+    }
+
+    componentDidMount() {
+        axios.get("/groupbuy/public/api/getproducts/2").then(res => {
+            this.setState({ productList: res.data.products });
         });
     }
 
     render() {
         return (
-            <div>
-                {this.state.fake_productList.map(item => {
+            <div className="product-list">
+                {this.state.productList.map(item => {
                     return (
-                        <div key={item.category_name} className="product-list">
+                        <div
+                            key={item.categorys.id}
+                            className="product-group"
+                            name={item.categorys.name}
+                        >
                             <span className="category-title">
-                                {item.category_name}
+                                {item.categorys.name}
                             </span>
                             {item.products.map(product => {
                                 return (
@@ -31,7 +37,7 @@ export default class ProductList extends Component {
                                         updateShopCartList={
                                             this.props.updateShopCartList
                                         }
-                                        key={product.product_name}
+                                        key={product.product_id}
                                         product={product}
                                     />
                                 );

@@ -17,6 +17,7 @@ export default class ShoppingCartList extends Component {
         this.setState({
             list: this.props.shoppingCartList
         });
+        console.log(this.state.list);
     }
     close() {
         this.props.setExpand(false);
@@ -50,10 +51,11 @@ export default class ShoppingCartList extends Component {
                 </div>
                 <div className="list-container">
                     {this.state.list.map((item, index) => {
+                        console.log(item);
                         return (
                             <div>
                                 <ShoppingCartItem
-                                    key={`${item.product_name}${index}`}
+                                    key={`cartitem${item.product_id}`}
                                     index={index}
                                     increase={this.increase}
                                     decrease={this.decrease}

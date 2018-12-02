@@ -1,13 +1,38 @@
 import React, { Component } from "react";
+import { Link, Element, Events, animateScroll as scroll } from "react-scroll";
 
-import CategoryList from "./CategoryList";
-import ProductList from "./ProductList";
+import ProductCard from "./ProductCard";
 import Header from "./Header";
-import SlideShow from "./SlideShow";
+import ProcessBar from "./ProcessBar";
+import DemoCarousel from "./DemoCarousel";
 
 export default class Products extends Component {
     constructor(props) {
         super(props);
+
+        this.state = { productList: [], categoryList: [], navBarItems: [] };
+    }
+
+    componentDidMount() {
+        axios.get("/groupbuy/public/api/getcategories/2").then(res => {
+            this.setState({
+                categoryList: res.data.categories
+            });
+        });
+        axios.get("/groupbuy/public/api/getproducts/2").then(res => {
+            this.setState({ productList: res.data.products });
+        });
+
+        for (let index = 0; index < this.state.categoryList.length; index++) {
+            this.state.navBarItems[index] = {
+                lable: this.state.categoryList[index].name,
+                target: this.state.categoryList[index].name
+            };
+        }
+    }
+    handleSetActive(to) {
+        // triger when navigate to certain seciton
+        // to is name of the section
     }
 
     render() {
@@ -19,31 +44,62 @@ export default class Products extends Component {
                     backgroundClass="dark-lighter"
                 />
                 <div style={{ height: "40px" }} />
-                <SlideShow />
-                {/* <div className="banner">
-                    <img
-                        src="/groupbuy/public/images/banner.png"
-                        alt="天府川菜馆"
-                    />
-                </div> */}
-                <div className="menu">
-                    <table>
-                        <thead>
-                            <tr>
-                                <td className="menu-head">点餐</td>
-                                <td className="menu-middle">门店信息</td>
-                                <td className="menu-middle">点评</td>
-                                <td className="menu-end">门店照片</td>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
+
+                <DemoCarousel />
+                <ProcessBar step={1} />
                 <div className="main">
-                    <CategoryList />
-                    <ProductList
-                        updateShopCartList={this.props.updateShopCartList}
-                        shoppingCartList={this.props.shoppingCartList}
-                    />
+                    <div className="category-list">
+                        {this.state.categoryList.map(category => {
+                            return (
+                                <Link
+                                    key={category.category_id}
+                                    className="category-list-item"
+                                    activeClass="active"
+                                    to={category.name}
+                                    isDynamic={true}
+                                    offset={-200}
+                                    spy={true}
+                                    smooth={true}
+                                    duration={300}
+                                    onSetActive={this.handleSetActive}
+                                    containerId="product-list"
+                                >
+                                    {category.name}
+                                </Link>
+                            );
+                        })}
+                    </div>
+
+                    <div id="product-list" className="product-list">
+                        {this.state.productList.map(item => {
+                            return (
+                                <Element
+                                    key={item.categorys.id}
+                                    className="product-group"
+                                    name={item.categorys.name}
+                                >
+                                    <span className="category-title">
+                                        {item.categorys.name}
+                                    </span>
+                                    {item.products.map(product => {
+                                        return (
+                                            <ProductCard
+                                                shoppingCartList={
+                                                    this.props.shoppingCartList
+                                                }
+                                                updateShopCartList={
+                                                    this.props
+                                                        .updateShopCartList
+                                                }
+                                                key={product.product_id}
+                                                product={product}
+                                            />
+                                        );
+                                    })}
+                                </Element>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         );

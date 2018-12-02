@@ -16,19 +16,19 @@ export default class ProductCard extends Component {
             <div className="product-card">
                 <div className="img-wrapper">
                     <img
-                        src={this.state.product.img_url}
-                        alt={this.state.product.product_name}
+                        src={`/groupbuy/public/${this.state.product.image}`}
+                        alt={this.state.product.name}
                     />
                 </div>
                 <div className="control">
                     <span className="text-information_title">
-                        <span>{this.state.product.product_name}</span>
-                        <span>{this.state.product.product_price}</span>
+                        <span>{this.state.product.name}</span>
+                        <span>{this.state.product.price}</span>
                     </span>
 
                     <ControlPannel
                         product={this.state.product}
-                        sold={this.state.product.product_sold}
+                        sold={this.state.product.sold}
                         updateShopCartList={this.props.updateShopCartList}
                         mode={1}
                         quantity={this.state.quantity}

@@ -15,6 +15,15 @@ html,
 body {
     background-color: $dark;
 }
+.demo {
+    color: white;
+    .element {
+        height: 300px;
+    }
+    .active {
+        color: red;
+    }
+}
 .container {
     margin: 0;
     padding: 0;
@@ -52,114 +61,95 @@ body {
         color: white;
     }
 }
-.shops {
-    height: 100vh;
-    background-color: $dark;
-}
-.shop-list {
-    background-color: $dark;
+.process-bar {
+    position: relative;
+    width: 90%;
+    height: 27px;
+    margin: 10px auto;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-.shop-card {
-    text-align: center;
-    margin-top: 10px;
-    img {
-        height: 18vh;
+    justify-content: space-between;
+    .line {
+        width: 100%;
+        height: 2px;
+        background-color: $white;
+        position: absolute;
+        left: 0px;
+        top: calc(50% - 1px);
     }
-    .tag-wrapper {
-        margin-top: 5px;
-        display: flex;
-        padding: 2px 15px;
-        .tag-green,
-        .tag-red {
-            font-size: 10px;
-            color: $white;
-            margin-right: 4px;
-            border-radius: 2px;
-            padding: 0px 4px;
-        }
-        .tag-red {
-            background-color: $red;
-        }
-        .tag-green {
-            background-color: $green;
-        }
-    }
-    .text-infos {
+    .node {
+        width: 27px;
+        border: 2px solid $white;
+        margin: 0;
+        padding: 0;
+        border-radius: 50%;
+        background-color: $darkSubtitle;
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
-        color: $white;
-        padding: 2px 15px;
-        .text-info_title {
-            text-align: left;
+        justify-content: center;
+        z-index: 55;
+        &.active {
+            background-color: $yellow;
         }
-        .text-info_details {
-            display: flex;
-            justify-content: space-between;
-            font-size: 10px;
+        .node-number {
+            color: $white;
+            text-align: center;
+            &.active {
+                color: $dark;
+            }
         }
     }
-    .control-pannel {
-        padding: 2px 15px;
+    .node-text {
+        flex: 1;
+        font-size: 10px;
+        font-weight: 500;
+        text-align: center;
+        color: $darkSubtitle;
+        &.active {
+            color: $white;
+        }
     }
 }
 .products {
-    min-height: 100vh;
+    height: 100vh;
     background-color: $dark;
-    .menu {
-        table {
-            width: 95vw;
-            color: $white;
-            margin: auto;
-            margin-top: 10px;
-            tr {
-                display: flex;
-                justify-content: space-around;
-            }
-            td {
-                flex: 1;
-                text-align: center;
-                padding: 3px 0px;
-                border: 1px solid $yellow;
-                font-size: 12px;
-                &.menu-head {
-                    border-top-left-radius: $border-radius;
-                    border-bottom-left-radius: $border-radius;
-                }
-                &.menu-middle {
-                    border-left: none;
-                }
-                &.menu-end {
-                    border-top-right-radius: $border-radius;
-                    border-bottom-right-radius: $border-radius;
-                    border-left: none;
-                }
-            }
-        }
-    }
+
     .main {
         display: flex;
+        // max-height: calc(100vh - 30px - 27px - 100px);
+        // overflow: scroll;
+        position: relative;
     }
     .category-list {
         width: 20vw;
         color: $white;
         margin-top: 20px;
+        max-height: calc(100vh - 30px - 27px - 100px);
+        overflow: scroll;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
         .category-list-item {
             padding: 10px;
             font-size: 12px;
             background-color: $categoryList;
             border-bottom: 1px solid $categoryListDivider;
+            &.active {
+                color: $yellow;
+                background-color: $dark;
+                border-left: 2px solid $yellow;
+            }
         }
     }
     .product-list {
+        height: calc(100vh - 30px - 27px - 100px);
+        overflow: scroll;
+        padding-bottom: 200px;
+    }
+    .product-group {
         width: 80vw;
         color: $white;
         margin-top: 20px;
         padding-left: 10px;
-        overflow: scroll;
         padding-bottom: 50px;
         .product-card {
             margin-top: 20px;
@@ -167,6 +157,7 @@ body {
             .img-wrapper {
                 img {
                     width: 80px;
+                    height: 54px;
                 }
             }
             .control {
@@ -217,6 +208,9 @@ body {
         background-color: $white;
         text-align: center;
         line-height: 35px;
+        a {
+            color: $dark;
+        }
     }
     .total-price {
         padding-top: 5px;
@@ -345,4 +339,60 @@ body {
     margin-bottom: 10px;
     box-shadow: 1px 1px 1px $categoryListDivider;
     background-color: $darkSubtitle;
+}
+
+// temp no use
+.shops {
+    height: 100vh;
+    background-color: $dark;
+}
+.shop-list {
+    background-color: $dark;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.shop-card {
+    text-align: center;
+    margin-top: 10px;
+    img {
+        height: 18vh;
+    }
+    .tag-wrapper {
+        margin-top: 5px;
+        display: flex;
+        padding: 2px 15px;
+        .tag-green,
+        .tag-red {
+            font-size: 10px;
+            color: $white;
+            margin-right: 4px;
+            border-radius: 2px;
+            padding: 0px 4px;
+        }
+        .tag-red {
+            background-color: $red;
+        }
+        .tag-green {
+            background-color: $green;
+        }
+    }
+    .text-infos {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        color: $white;
+        padding: 2px 15px;
+        .text-info_title {
+            text-align: left;
+        }
+        .text-info_details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+        }
+    }
+    .control-pannel {
+        padding: 2px 15px;
+    }
 }
