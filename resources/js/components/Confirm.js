@@ -5,6 +5,14 @@ import PickUpAddress from "./PickUpAddress";
 import OrderList from "./OrderList";
 
 export default class Confirm extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        this.props.changeMode(2);
+    }
+
     render() {
         return (
             <div className="confirm">
@@ -13,7 +21,7 @@ export default class Confirm extends Component {
                     textClass="bold"
                     backgroundClass="dark"
                 />
-                <div style={{height:"40px"}}></div>
+                <div style={{ height: "40px" }} />
                 <PickUpAddress />
                 <OrderList shoppingCartList={this.props.shoppingCartList} />
             </div>

@@ -10745,6 +10745,7 @@ body {
 
 .shop-cart-button .right a {
   color: #111214;
+  text-decoration: none;
 }
 
 .shop-cart-button .total-price {

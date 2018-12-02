@@ -17421,9 +17421,10 @@ var App = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-        _this.state = { shopping_cart_list: [] };
+        _this.state = { shopping_cart_list: [], mode: 1 };
 
         _this.updateShopCartList = _this.updateShopCartList.bind(_this);
+        _this.changeMode = _this.changeMode.bind(_this);
         return _this;
     }
 
@@ -17431,6 +17432,11 @@ var App = function (_Component) {
         key: "updateShopCartList",
         value: function updateShopCartList(newList) {
             this.setState({ shopping_cart_list: newList });
+        }
+    }, {
+        key: "changeMode",
+        value: function changeMode(status) {
+            this.setState({ mode: status });
         }
     }, {
         key: "render",
@@ -17449,7 +17455,8 @@ var App = function (_Component) {
                         render: function render(props) {
                             return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_Products__["a" /* default */], _extends({
                                 updateShopCartList: _this2.updateShopCartList,
-                                shoppingCartList: _this2.state.shopping_cart_list
+                                shoppingCartList: _this2.state.shopping_cart_list,
+                                changeMode: _this2.changeMode
                             }, props));
                         }
                     }),
@@ -17459,7 +17466,8 @@ var App = function (_Component) {
                         render: function render(props) {
                             return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_Products__["a" /* default */], _extends({
                                 updateShopCartList: _this2.updateShopCartList,
-                                shoppingCartList: _this2.state.shopping_cart_list
+                                shoppingCartList: _this2.state.shopping_cart_list,
+                                changeMode: _this2.changeMode
                             }, props));
                         }
                     }),
@@ -17469,7 +17477,8 @@ var App = function (_Component) {
                         render: function render(props) {
                             return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_Confirm__["a" /* default */], _extends({
                                 updateShopCartList: _this2.updateShopCartList,
-                                shoppingCartList: _this2.state.shopping_cart_list
+                                shoppingCartList: _this2.state.shopping_cart_list,
+                                changeMode: _this2.changeMode
                             }, props));
                         }
                     }),
@@ -17485,7 +17494,8 @@ var App = function (_Component) {
                     }),
                     __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_ShopCart__["a" /* default */], {
                         updateShopCartList: this.updateShopCartList,
-                        shoppingCartList: this.state.shopping_cart_list
+                        shoppingCartList: this.state.shopping_cart_list,
+                        mode: this.state.mode
                     })
                 )
             );
@@ -64919,6 +64929,8 @@ var Products = function (_Component) {
         value: function componentDidMount() {
             var _this2 = this;
 
+            this.props.changeMode(1);
+
             axios.get("/groupbuy/public/api/getcategories/2").then(function (res) {
                 _this2.setState({
                     categoryList: res.data.categories
@@ -68266,27 +68278,45 @@ var ShopCart = function (_Component) {
 
         _this.state = {
             expand: false,
-            shopping_cart_list: _this.props.shoppingCartList
+            shopping_cart_list: _this.props.shoppingCartList,
+            mode: _this.props.mode,
+            btnText: "确认付款"
         };
 
         _this.setExpand = _this.setExpand.bind(_this);
+        _this.getBtnText = _this.getBtnText.bind(_this);
         return _this;
     }
 
     _createClass(ShopCart, [{
         key: "componentDidMount",
         value: function componentDidMount() {
-            this.setState({ shopping_cart_list: this.props.shoppingCartList });
+            this.setState({
+                shopping_cart_list: this.props.shoppingCartList,
+                mode: this.props.mode
+            });
         }
     }, {
         key: "componentWillReceiveProps",
         value: function componentWillReceiveProps(newProps) {
-            this.setState({ shopping_cart_list: newProps.shoppingCartList });
+            this.setState({
+                shopping_cart_list: newProps.shoppingCartList,
+                mode: newProps.mode
+            });
         }
     }, {
         key: "setExpand",
         value: function setExpand(status) {
             this.setState({ expand: status });
+        }
+    }, {
+        key: "getBtnText",
+        value: function getBtnText() {
+            if (this.state.mode === 1) {
+                return "确认付款";
+            } else {
+                return "前往付款";
+            }
         }
     }, {
         key: "render",
@@ -68308,7 +68338,8 @@ var ShopCart = function (_Component) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__ShopCartButton__["a" /* default */], {
                     shoppingCartList: this.state.shopping_cart_list,
                     setExpand: this.setExpand,
-                    btn_text: "确认付款"
+                    btn_text: this.getBtnText(),
+                    mode: this.state.mode
                 })
             );
         }
@@ -68346,7 +68377,7 @@ var ShopCartButton = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (ShopCartButton.__proto__ || Object.getPrototypeOf(ShopCartButton)).call(this, props));
 
-        _this.state = { shopping_cart_list: [] };
+        _this.state = { shopping_cart_list: [], mode: 1 };
         _this.setExpand = _this.setExpand.bind(_this);
         _this.getPrice = _this.getPrice.bind(_this);
         return _this;
@@ -68355,7 +68386,18 @@ var ShopCartButton = function (_Component) {
     _createClass(ShopCartButton, [{
         key: "componentDidMount",
         value: function componentDidMount() {
-            this.setState({ shopping_cart_list: this.props.shoppingCartList });
+            this.setState({
+                shopping_cart_list: this.props.shoppingCartList,
+                mode: this.props.mode
+            });
+        }
+    }, {
+        key: "componentWillReceiveProps",
+        value: function componentWillReceiveProps(newProps) {
+            this.setState({
+                shopping_cart_list: newProps.shoppingCartList,
+                mode: newProps.mode
+            });
         }
     }, {
         key: "getPrice",
@@ -68377,10 +68419,10 @@ var ShopCartButton = function (_Component) {
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 "div",
-                { onClick: this.setExpand, className: "shop-cart-button" },
+                { className: "shop-cart-button" },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     "div",
-                    { className: "left" },
+                    { onClick: this.setExpand, className: "left" },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         "i",
                         { className: "material-icons" },
@@ -68393,12 +68435,20 @@ var ShopCartButton = function (_Component) {
                         this.getPrice()
                     )
                 ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                this.state.mode === 1 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     "div",
                     { className: "right" },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
                         { to: "/groupbuy/public/confirm" },
+                        this.props.btn_text
+                    )
+                ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "div",
+                    { className: "right" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
+                        { to: "/groupbuy/public/products" },
                         this.props.btn_text
                     )
                 )
@@ -68650,13 +68700,18 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Confirm = function (_Component) {
     _inherits(Confirm, _Component);
 
-    function Confirm() {
+    function Confirm(props) {
         _classCallCheck(this, Confirm);
 
-        return _possibleConstructorReturn(this, (Confirm.__proto__ || Object.getPrototypeOf(Confirm)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (Confirm.__proto__ || Object.getPrototypeOf(Confirm)).call(this, props));
     }
 
     _createClass(Confirm, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            this.props.changeMode(2);
+        }
+    }, {
         key: "render",
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68711,11 +68766,6 @@ var PickUpAddress = function (_Component) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 "div",
                 { className: "pickup-address" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "p",
-                    null,
-                    "Choose your prefer pickup address"
-                ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     "p",
                     null,

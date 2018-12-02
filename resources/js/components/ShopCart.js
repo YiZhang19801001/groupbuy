@@ -8,20 +8,37 @@ export default class ShopCart extends Component {
 
         this.state = {
             expand: false,
-            shopping_cart_list: this.props.shoppingCartList
+            shopping_cart_list: this.props.shoppingCartList,
+            mode: this.props.mode,
+            btnText: "确认付款"
         };
 
         this.setExpand = this.setExpand.bind(this);
+        this.getBtnText = this.getBtnText.bind(this);
     }
     componentDidMount() {
-        this.setState({ shopping_cart_list: this.props.shoppingCartList });
+        this.setState({
+            shopping_cart_list: this.props.shoppingCartList,
+            mode: this.props.mode
+        });
     }
 
     componentWillReceiveProps(newProps) {
-        this.setState({ shopping_cart_list: newProps.shoppingCartList });
+        this.setState({
+            shopping_cart_list: newProps.shoppingCartList,
+            mode: newProps.mode
+        });
     }
     setExpand(status) {
         this.setState({ expand: status });
+    }
+
+    getBtnText() {
+        if (this.state.mode === 1) {
+            return "确认付款";
+        } else {
+            return "前往付款";
+        }
     }
 
     render() {
@@ -43,7 +60,8 @@ export default class ShopCart extends Component {
                 <ShopCartButton
                     shoppingCartList={this.state.shopping_cart_list}
                     setExpand={this.setExpand}
-                    btn_text={"确认付款"}
+                    btn_text={this.getBtnText()}
+                    mode={this.state.mode}
                 />
             </div>
         );

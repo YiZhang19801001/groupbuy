@@ -25,13 +25,18 @@ export default class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { shopping_cart_list: [] };
+        this.state = { shopping_cart_list: [], mode: 1 };
 
         this.updateShopCartList = this.updateShopCartList.bind(this);
+        this.changeMode = this.changeMode.bind(this);
     }
 
     updateShopCartList(newList) {
         this.setState({ shopping_cart_list: newList });
+    }
+
+    changeMode(status) {
+        this.setState({ mode: status });
     }
     render() {
         return (
@@ -44,6 +49,7 @@ export default class App extends Component {
                             <Products
                                 updateShopCartList={this.updateShopCartList}
                                 shoppingCartList={this.state.shopping_cart_list}
+                                changeMode={this.changeMode}
                                 {...props}
                             />
                         )}
@@ -55,6 +61,7 @@ export default class App extends Component {
                             <Products
                                 updateShopCartList={this.updateShopCartList}
                                 shoppingCartList={this.state.shopping_cart_list}
+                                changeMode={this.changeMode}
                                 {...props}
                             />
                         )}
@@ -66,6 +73,7 @@ export default class App extends Component {
                             <Confirm
                                 updateShopCartList={this.updateShopCartList}
                                 shoppingCartList={this.state.shopping_cart_list}
+                                changeMode={this.changeMode}
                                 {...props}
                             />
                         )}
@@ -85,6 +93,7 @@ export default class App extends Component {
                     <ShopCart
                         updateShopCartList={this.updateShopCartList}
                         shoppingCartList={this.state.shopping_cart_list}
+                        mode={this.state.mode}
                     />
                 </div>
             </Router>

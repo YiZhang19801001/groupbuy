@@ -14,6 +14,8 @@ export default class Products extends Component {
     }
 
     componentDidMount() {
+        this.props.changeMode(1);
+
         axios.get("/groupbuy/public/api/getcategories/2").then(res => {
             this.setState({
                 categoryList: res.data.categories
