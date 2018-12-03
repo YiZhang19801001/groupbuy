@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 
 import Header from "./Header";
-import PickUpAddress from "./PickUpAddress";
 import OrderList from "./OrderList";
+import ProcessBar from "./ProcessBar";
+import PaymentMethod from "./PaymentMethod";
+import PickUpAddress from "./PickUpAddress";
 
 export default class Confirm extends Component {
     constructor(props) {
@@ -22,7 +24,9 @@ export default class Confirm extends Component {
                     backgroundClass="dark"
                 />
                 <div style={{ height: "40px" }} />
+                <ProcessBar step={2} />
                 <PickUpAddress />
+                <PaymentMethod setMethod={this.props.setMethod} />
                 <OrderList shoppingCartList={this.props.shoppingCartList} />
             </div>
         );

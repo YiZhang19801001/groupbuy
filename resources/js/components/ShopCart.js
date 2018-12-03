@@ -19,14 +19,16 @@ export default class ShopCart extends Component {
     componentDidMount() {
         this.setState({
             shopping_cart_list: this.props.shoppingCartList,
-            mode: this.props.mode
+            mode: this.props.mode,
+            paymentMethod: this.props.paymentMethod
         });
     }
 
     componentWillReceiveProps(newProps) {
         this.setState({
             shopping_cart_list: newProps.shoppingCartList,
-            mode: newProps.mode
+            mode: newProps.mode,
+            paymentMethod: this.props.paymentMethod
         });
     }
     setExpand(status) {
@@ -62,6 +64,7 @@ export default class ShopCart extends Component {
                     setExpand={this.setExpand}
                     btn_text={this.getBtnText()}
                     mode={this.state.mode}
+                    paymentMethod={this.state.paymentMethod}
                 />
             </div>
         );

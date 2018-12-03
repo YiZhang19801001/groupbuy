@@ -4,7 +4,7 @@ export default class ShopCartButton extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { shopping_cart_list: [], mode: 1 };
+        this.state = { shopping_cart_list: [], mode: 1, paymentMethod: "" };
         this.setExpand = this.setExpand.bind(this);
         this.getPrice = this.getPrice.bind(this);
     }
@@ -12,13 +12,15 @@ export default class ShopCartButton extends Component {
     componentDidMount() {
         this.setState({
             shopping_cart_list: this.props.shoppingCartList,
-            mode: this.props.mode
+            mode: this.props.mode,
+            paymentMethod: this.props.paymentMethod
         });
     }
     componentWillReceiveProps(newProps) {
         this.setState({
             shopping_cart_list: newProps.shoppingCartList,
-            mode: newProps.mode
+            mode: newProps.mode,
+            paymentMethod: newProps.paymentMethod
         });
     }
 
@@ -49,7 +51,7 @@ export default class ShopCartButton extends Component {
                     </div>
                 ) : (
                     <div className="right">
-                        <Link to={`/groupbuy/public/products`}>
+                        <Link to={`/groupbuy/public/complete`}>
                             {this.props.btn_text}
                         </Link>
                     </div>

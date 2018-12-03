@@ -16,19 +16,21 @@ import ReactDOM from "react-dom";
 import React, { Component } from "react";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 
+import Section from "./components/demo/Section";
+import Confirm from "./components/Confirm";
+import Complete from "./components/Complete";
 import Products from "./components/Products";
 import ShopCart from "./components/ShopCart";
-import Confirm from "./components/Confirm";
-import Section from "./components/demo/Section";
 
 export default class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { shopping_cart_list: [], mode: 1 };
+        this.state = { shopping_cart_list: [], mode: 1, paymentMethod: "Cash" };
 
         this.updateShopCartList = this.updateShopCartList.bind(this);
         this.changeMode = this.changeMode.bind(this);
+        this.setMethod = this.setMethod.bind(this);
     }
 
     updateShopCartList(newList) {
@@ -37,6 +39,11 @@ export default class App extends Component {
 
     changeMode(status) {
         this.setState({ mode: status });
+    }
+
+    setMethod(method) {
+        this.setState({ paymentMethod: method });
+        console.log(this.state.paymentMethod);
     }
     render() {
         return (
@@ -74,10 +81,23 @@ export default class App extends Component {
                                 updateShopCartList={this.updateShopCartList}
                                 shoppingCartList={this.state.shopping_cart_list}
                                 changeMode={this.changeMode}
+                                setMethod={this.setMethod}
                                 {...props}
                             />
                         )}
                     />
+                    <Route
+                        exact
+                        path="/groupbuy/public/complete"
+                        render={props => (
+                            <Complete
+                                shoppingCartList={this.state.shopping_cart_list}
+                                paymentMethod={this.state.paymentMethod}
+                                {...props}
+                            />
+                        )}
+                    />
+
                     <Route
                         exact
                         path="/groupbuy/public/demo"
@@ -94,6 +114,7 @@ export default class App extends Component {
                         updateShopCartList={this.updateShopCartList}
                         shoppingCartList={this.state.shopping_cart_list}
                         mode={this.state.mode}
+                        paymentMethod={this.state.paymentMethod}
                     />
                 </div>
             </Router>

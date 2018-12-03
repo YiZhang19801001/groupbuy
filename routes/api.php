@@ -20,6 +20,6 @@ Route::get('getproducts/{lang}','ProductController@getProducts');
 
 Route::get('getcategories/{lang}','CategoryController@getCategories');
 
-Route::get('getshops/{id}','ValueController@getShops');
+Route::get('getshops/{lang}','ShopController@getShops');
 
 
