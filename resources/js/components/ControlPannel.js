@@ -8,13 +8,26 @@ export default class ControlPannel extends Component {
 
         this.state = {
             sold: this.props.sold,
-            quantity: this.props.quantity || 0,
+            quantity: this.props.quantity,
+            product: this.props.product,
+            mode: this.props.mode
+        };
+    }
+    componentDidMount() {
+        this.state = {
+            sold: this.props.sold,
+            quantity: this.props.quantity,
             product: this.props.product,
             mode: this.props.mode
         };
     }
 
+    componentWillReceiveProps(newProps) {
+        this.setState = { mode: newProps.mode, quantity: newProps.quantity };
+        // console.log(`${this.state.product.name}`, this.state.mode);
+    }
     render() {
+        //console.log(`${this.state.product.name}`, this.state.mode);
         return (
             <div className="control-pannel">
                 <span className="sold">SOLD: {this.state.sold}</span>
@@ -24,11 +37,12 @@ export default class ControlPannel extends Component {
                         shoppingCartList={this.props.shoppingCartList}
                         updateShopCartList={this.props.updateShopCartList}
                         mode={1}
-                        quantity={this.state.quantity}
+                        quantity={this.props.quantity}
                     />
                 ) : (
                     <NavigateControlPannel
                         product_id={this.state.product.product_id}
+                        setChoicePannelStatus={this.props.setChoicePannelStatus}
                     />
                 )}
             </div>

@@ -84,6 +84,17 @@ export default class Products extends Component {
                                         {item.categorys.name}
                                     </span>
                                     {item.products.map(product => {
+                                        let qty = 0;
+                                        this.props.shoppingCartList.forEach(
+                                            element => {
+                                                if (
+                                                    element.product_id ===
+                                                    product.product_id
+                                                ) {
+                                                    qty += element.quantity;
+                                                }
+                                            }
+                                        );
                                         return (
                                             <ProductCard
                                                 shoppingCartList={
@@ -95,6 +106,7 @@ export default class Products extends Component {
                                                 }
                                                 key={product.product_id}
                                                 product={product}
+                                                quantity={qty}
                                             />
                                         );
                                     })}

@@ -18,6 +18,7 @@ import { Route, BrowserRouter as Router } from "react-router-dom";
 
 import Section from "./components/demo/Section";
 import Confirm from "./components/Confirm";
+import Login from "./components/Login";
 import Complete from "./components/Complete";
 import Products from "./components/Products";
 import ShopCart from "./components/ShopCart";
@@ -26,11 +27,18 @@ export default class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { shopping_cart_list: [], mode: 1, paymentMethod: "Cash" };
+        this.state = {
+            shopping_cart_list: [],
+            mode: 1,
+            paymentMethod: "Cash",
+            date: {},
+            showChoicePannel: false
+        };
 
         this.updateShopCartList = this.updateShopCartList.bind(this);
         this.changeMode = this.changeMode.bind(this);
         this.setMethod = this.setMethod.bind(this);
+        this.pickupDate = this.pickupDate.bind(this);
     }
 
     updateShopCartList(newList) {
@@ -43,8 +51,12 @@ export default class App extends Component {
 
     setMethod(method) {
         this.setState({ paymentMethod: method });
-        console.log(this.state.paymentMethod);
     }
+
+    pickupDate(date) {
+        this.setState({ date: date });
+    }
+
     render() {
         return (
             <Router>
@@ -82,6 +94,17 @@ export default class App extends Component {
                                 shoppingCartList={this.state.shopping_cart_list}
                                 changeMode={this.changeMode}
                                 setMethod={this.setMethod}
+                                pickupDate={this.pickupDate}
+                                {...props}
+                            />
+                        )}
+                    />
+                    <Route
+                        exact
+                        path="/groupbuy/public/login"
+                        render={props => (
+                            <Login
+                                shoppingCartList={this.state.shopping_cart_list}
                                 {...props}
                             />
                         )}

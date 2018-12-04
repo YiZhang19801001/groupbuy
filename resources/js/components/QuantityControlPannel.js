@@ -8,7 +8,7 @@ export default class QuantityControlPannel extends Component {
             quantity: this.props.quantity,
             mode: this.props.mode,
             shopping_cart_list: [],
-            product: this.props.product || null
+            product: this.props.product || {}
         };
         this.decreaseItem = this.decreaseItem.bind(this);
         this.addItem = this.addItem.bind(this);
@@ -22,7 +22,10 @@ export default class QuantityControlPannel extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ quantity: nextProps.quantity });
+        this.setState({
+            shopping_cart_list: this.props.shoppingCartList,
+            quantity: nextProps.quantity
+        });
     }
 
     decreaseItem() {
@@ -34,7 +37,7 @@ export default class QuantityControlPannel extends Component {
                 ) {
                     cart_item.quantity--;
                 } else {
-                    shoppingCartList.splice(index, 1);
+                    this.state.shopping_cart_list.splice(index, 1);
                 }
                 this.props.updateShopCartList(this.state.shopping_cart_list);
             });

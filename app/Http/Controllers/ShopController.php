@@ -27,20 +27,14 @@ class ShopController extends Controller
         foreach ($shops as $shop) {
 
             $shopTimes = ShopTime::where('location_id',$shop['location_id'])->select('location_id','times')->get();
-
-            foreach($shopTimes as $date){
-
                 $shopWithDate["shop_id"] = $shop['location_id'];
                 $shopWithDate["name"]=$shop["name"];
                 $shopWithDate["address"]=$shop["address"];
                 $shopWithDate["phone"]=$shop["telephone"];
                 $shopWithDate["image_url"]=$shop["image"];
-                $shopWithDate["valid_date"]=$date["times"];
+                $shopWithDate["valid_date"]=$shopTimes;
 
                 array_push($result,$shopWithDate);
-            }
-
-
         }
 
         return response()->json(["shop_with_date"=>$result],200);

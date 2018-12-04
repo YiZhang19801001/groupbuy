@@ -113,7 +113,7 @@ class ProductController extends Controller
         foreach ($typeIds_to_product as $typeId_to_product) {
             $choices = array();
             /**oc_product_add_type: [add_type_id:int] [name:string][type:bit][required:bit][checkbox:bit] */
-            $choice = ProductAddType::where('add_type_id',$typeId_to_product->type)->first();
+            $choice = ProductAddType::where('add_type_id',$typeId_to_product->type)->where('language_id',$lang)->first();
             /**oc_product_ext: [product_ext_id:int][product_id:int][type:int][name:string][price:float] */
             $choices_to_type = ProductExt::where('product_id',$id)->where('type',$choice["add_type_id"])->get();
 

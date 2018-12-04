@@ -34,7 +34,12 @@ export default class PickUpAddress extends Component {
         return (
             <div className="pickup-address">
                 <div onClick={this.toggleContent} className="header">
-                    Choose your pick-up shop and date
+                    <span>Choose your pick-up shop and date</span>
+                    <i className="material-icons">
+                        {this.state.show === "block"
+                            ? "keyboard_arrow_up"
+                            : "keyboard_arrow_down"}
+                    </i>
                 </div>
                 <div className="content" style={{ display: this.state.show }}>
                     {this.state.shops.map((shop, index) => {
@@ -44,6 +49,7 @@ export default class PickUpAddress extends Component {
                                 shop={shop}
                                 isSelected={index == this.state.selectIndex}
                                 selecting={this.selecting}
+                                pickupDate={this.props.pickupDate}
                                 index={index}
                             />
                         );

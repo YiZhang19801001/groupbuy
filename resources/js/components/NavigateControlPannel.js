@@ -1,12 +1,18 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 
 export default class NavigateControlPannel extends Component {
+    
+    constructor(props){
+        super(props);
+
+        this.setChoicePannelStatus = this.setChoicePannelStatus.bind(this);
+    }
+
+    setChoicePannelStatus(){
+        this.props.setChoicePannelStatus(true);
+    }
+
     render() {
-        return (
-            <Link to={`/groupbuy/public/shops/${this.props.product_id}`}>
-                <span className="navigate-control-pannel">选择商铺</span>
-            </Link>
-        );
+        return <div onClick={this.setChoicePannelStatus} className="navigate-control-pannel">选规格</div>;
     }
 }

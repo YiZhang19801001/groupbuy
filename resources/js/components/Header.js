@@ -17,7 +17,7 @@ export default class Header extends Component {
         return (
             <div className={`page-header ${this.state.backgroundClass}`}>
                 <Link to="/groupbuy/public/products">
-                    <i className="material-icons">chevron_left</i>
+                    <i className="material-icons">home</i>
                 </Link>
                 <p className={this.state.textClass}>{this.props.text}</p>
                 <i className="material-icons">close</i>

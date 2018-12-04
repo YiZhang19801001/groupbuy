@@ -25,7 +25,7 @@ export default class Confirm extends Component {
                 />
                 <div style={{ height: "40px" }} />
                 <ProcessBar step={2} />
-                <PickUpAddress />
+                <PickUpAddress pickupDate={this.props.pickupDate} />
                 <PaymentMethod setMethod={this.props.setMethod} />
                 <OrderList shoppingCartList={this.props.shoppingCartList} />
             </div>

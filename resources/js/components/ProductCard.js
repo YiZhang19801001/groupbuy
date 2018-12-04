@@ -1,15 +1,36 @@
 import React, { Component } from "react";
 
 import ControlPannel from "./ControlPannel";
+import ChoicePannel from "./ChoicePannel";
 
 export default class ProductCard extends Component {
     constructor(props) {
         super(props);
-
+        const newMode =
+            this.props.product.choices.length === 0 &&
+            this.props.product.options.length === 0
+                ? 1
+                : 2;
         this.state = {
             product: this.props.product,
-            quantity: this.props.quantity || 0
+            quantity: this.props.quantity,
+            mode: newMode,
+            showChoicePannel: false
         };
+
+        this.setChoicePannelStatus = this.setChoicePannelStatus.bind(this);
+    }
+
+    componentDidMount() {
+        // console.log(
+        //     `${this.state.product.name}`,
+        //     this.state.product.choices.length
+        // );
+        // console.log(`${this.state.product.name}`, newMode);
+    }
+
+    setChoicePannelStatus(status) {
+        this.setState({ showChoicePannel: status });
     }
     render() {
         return (
@@ -30,10 +51,19 @@ export default class ProductCard extends Component {
                         product={this.state.product}
                         sold={this.state.product.sold}
                         updateShopCartList={this.props.updateShopCartList}
-                        mode={1}
-                        quantity={this.state.quantity}
+                        mode={this.state.mode}
+                        quantity={this.props.quantity}
                         shoppingCartList={this.props.shoppingCartList}
+                        setChoicePannelStatus={this.setChoicePannelStatus}
                     />
+                    {this.state.showChoicePannel ? (
+                        <ChoicePannel
+                            shoppingCartList={this.props.shoppingCartList}
+                            updateShopCartList={this.props.updateShopCartList}
+                            product={this.props.product}
+                            setChoicePannelStatus={this.setChoicePannelStatus}
+                        />
+                    ) : null}
                 </div>
             </div>
         );
