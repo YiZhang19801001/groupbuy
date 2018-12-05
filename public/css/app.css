@@ -10746,6 +10746,18 @@ body {
   background-color: #111214;
 }
 
+.shop-cart-button .badge {
+  position: absolute;
+  color: #fff;
+  background-color: #e3342f;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  line-height: 15px;
+  bottom: 36px;
+  left: 47px;
+}
+
 .shop-cart-button .left {
   width: 80%;
   background-color: #fed032;
@@ -10910,10 +10922,15 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  line-height: 90px;
   -webkit-box-flex: 3;
       -ms-flex: 3;
           flex: 3;
+}
+
+.shopping-cart-item .item-name .sub-choice,
+.shopping-cart-item .item-name .sub-option {
+  color: #767779;
+  font-size: 8px;
 }
 
 .shopping-cart-item .item-price-quantity {

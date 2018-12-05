@@ -6,8 +6,9 @@ export default class ShopCartButton extends Component {
 
         this.state = { shopping_cart_list: [], mode: 1, paymentMethod: "" };
         this.setExpand = this.setExpand.bind(this);
-        this.getPrice = this.getPrice.bind(this);
+        this.getPriceTotal = this.getPriceTotal.bind(this);
         this.closeOrderList = this.closeOrderList.bind(this);
+        this.getQuantityTotal = this.getQuantityTotal.bind(this);
     }
 
     componentDidMount() {
@@ -25,11 +26,16 @@ export default class ShopCartButton extends Component {
         });
     }
 
-    getPrice() {
+    getPriceTotal() {
         let totalPrice = 0;
-        console.log("shopcart button: ", this.state.shopping_cart_list);
+        console.log("list: ", this.state.shopping_cart_list);
         this.state.shopping_cart_list.map(item => {
             totalPrice += item.quantity * item.price;
+            if (item.options.length > 0) {
+                item.options.map(option => {
+                    totalPrice += option.price * option.quantity;
+                });
+            }
         });
         totalPrice = Math.round(totalPrice * 100) / 100;
         return totalPrice;
@@ -42,12 +48,24 @@ export default class ShopCartButton extends Component {
     closeOrderList() {
         this.props.setExpand(false);
     }
+
+    getQuantityTotal() {
+        let totalQuantity = 0;
+        this.state.shopping_cart_list.map(item => {
+            totalQuantity += item.quantity;
+        });
+
+        return totalQuantity;
+    }
     render() {
         return (
             <div className="shop-cart-button">
                 <div onClick={this.setExpand} className="left">
                     <i className="material-icons">shopping_cart</i>
-                    <span className="total-price">${this.getPrice()}</span>
+                    {this.getQuantityTotal() > 0 ? (
+                        <span className="badge">{this.getQuantityTotal()}</span>
+                    ) : null}
+                    <span className="total-price">${this.getPriceTotal()}</span>
                 </div>
                 <div className="right" onClick={this.closeOrderList}>
                     {this.state.mode === 1 ? (

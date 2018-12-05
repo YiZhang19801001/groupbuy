@@ -67839,8 +67839,6 @@ var ChoicePannel = function (_Component) {
     _createClass(ChoicePannel, [{
         key: "componentDidMount",
         value: function componentDidMount() {
-            console.log("product: ", this.props.product);
-            console.log("shoppingCartList", this.props.shoppingCartList);
             this.setState({
                 shoppingCartList: this.props.shoppingCartList,
                 product: {
@@ -67853,7 +67851,6 @@ var ChoicePannel = function (_Component) {
     }, {
         key: "setChoice",
         value: function setChoice(choice) {
-            console.log("choice: ", choice);
             var flag = true;
             for (var index = 0; index < this.state.choices.length; index++) {
                 if (this.state.choices[index].type === choice.type) {
@@ -67869,7 +67866,6 @@ var ChoicePannel = function (_Component) {
     }, {
         key: "setOption",
         value: function setOption(option) {
-            console.log("option: ", option);
             var flag = true;
             for (var index = 0; index < this.state.options.length; index++) {
                 if (this.state.options[index].type === option.option_value_name) {
@@ -67887,14 +67883,14 @@ var ChoicePannel = function (_Component) {
         value: function addToCart() {
             // todo:: check the existing list to determin add quantity or add new rows
             var orderItem = this.state.product;
-            console.log("orderItem", orderItem);
+
             orderItem.choices = this.state.choices;
             orderItem.options = this.state.options;
-            console.log("orderItem with options and choice: ", orderItem);
-            console.log("state shoppingCartList", this.state.shoppingCartList);
-            var newList = this.state.shoppingCartList.push(orderItem);
-            console.log("newList: ", newList);
-            this.props.updateShopCartList(newList);
+            orderItem.quantity = 1;
+
+            this.state.shoppingCartList.push(orderItem);
+
+            this.props.updateShopCartList(this.state.shoppingCartList);
             this.props.setChoicePannelStatus(false);
         }
     }, {
@@ -68009,10 +68005,21 @@ var ChoiceGroup = function (_Component) {
     function ChoiceGroup(props) {
         _classCallCheck(this, ChoiceGroup);
 
-        return _possibleConstructorReturn(this, (ChoiceGroup.__proto__ || Object.getPrototypeOf(ChoiceGroup)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (ChoiceGroup.__proto__ || Object.getPrototypeOf(ChoiceGroup)).call(this, props));
+
+        _this.setChoice = _this.setChoice.bind(_this);
+        return _this;
     }
 
     _createClass(ChoiceGroup, [{
+        key: "setChoice",
+        value: function setChoice(e) {
+            var pickedChoice = {};
+            pickedChoice.name = this.props.choice.type;
+            pickedChoice.value = e.target.value;
+            this.props.setChoice(pickedChoice);
+        }
+    }, {
         key: "render",
         value: function render() {
             var _this2 = this;
@@ -68031,10 +68038,14 @@ var ChoiceGroup = function (_Component) {
                     this.props.choice.choices.map(function (item, index) {
                         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             "label",
-                            { className: "radio-container" },
+                            {
+                                key: "choicegrouplabel" + index,
+                                className: "radio-container"
+                            },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                                key: "" + _this2.props.choice.type_id + index,
+                                key: "choicegroupinput" + index,
                                 type: "radio",
+                                onChange: _this2.setChoice,
                                 name: _this2.props.choice.type,
                                 value: item.name
                             }),
@@ -68094,7 +68105,7 @@ var OpitonGroup = function (_Component) {
     _createClass(OpitonGroup, [{
         key: "componentDidMount",
         value: function componentDidMount() {
-            console.log("option in props: ", this.props.option);
+            //console.log("option in props: ", this.props.option);
         }
     }, {
         key: "render",
@@ -68106,7 +68117,7 @@ var OpitonGroup = function (_Component) {
                 { className: "option-group" },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     "div",
-                    { className: "header" },
+                    { className: "header1" },
                     this.props.option.option_name
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68178,9 +68189,9 @@ var OptionCard = function (_Component) {
         value: function setOption() {
             this.props.setOption({
                 option_value_name: this.props.option.option_value_name,
-                price: this.props.option.price * this.state.quantity,
+                price: this.props.option.price,
                 product_option_value_id: this.props.product_option_value_id,
-                quantity: this.state.quantity
+                quantity: this.state.quantity + 1
             });
         }
     }, {
@@ -68197,6 +68208,7 @@ var OptionCard = function (_Component) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     "span",
                     { className: "price" },
+                    "$",
                     this.props.option.price
                 ),
                 this.state.quantity > 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -70197,8 +70209,9 @@ var ShopCartButton = function (_Component) {
 
         _this.state = { shopping_cart_list: [], mode: 1, paymentMethod: "" };
         _this.setExpand = _this.setExpand.bind(_this);
-        _this.getPrice = _this.getPrice.bind(_this);
+        _this.getPriceTotal = _this.getPriceTotal.bind(_this);
         _this.closeOrderList = _this.closeOrderList.bind(_this);
+        _this.getQuantityTotal = _this.getQuantityTotal.bind(_this);
         return _this;
     }
 
@@ -70221,12 +70234,17 @@ var ShopCartButton = function (_Component) {
             });
         }
     }, {
-        key: "getPrice",
-        value: function getPrice() {
+        key: "getPriceTotal",
+        value: function getPriceTotal() {
             var totalPrice = 0;
-            console.log("shopcart button: ", this.state.shopping_cart_list);
+            console.log("list: ", this.state.shopping_cart_list);
             this.state.shopping_cart_list.map(function (item) {
                 totalPrice += item.quantity * item.price;
+                if (item.options.length > 0) {
+                    item.options.map(function (option) {
+                        totalPrice += option.price * option.quantity;
+                    });
+                }
             });
             totalPrice = Math.round(totalPrice * 100) / 100;
             return totalPrice;
@@ -70242,6 +70260,16 @@ var ShopCartButton = function (_Component) {
             this.props.setExpand(false);
         }
     }, {
+        key: "getQuantityTotal",
+        value: function getQuantityTotal() {
+            var totalQuantity = 0;
+            this.state.shopping_cart_list.map(function (item) {
+                totalQuantity += item.quantity;
+            });
+
+            return totalQuantity;
+        }
+    }, {
         key: "render",
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -70255,11 +70283,16 @@ var ShopCartButton = function (_Component) {
                         { className: "material-icons" },
                         "shopping_cart"
                     ),
+                    this.getQuantityTotal() > 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { className: "badge" },
+                        this.getQuantityTotal()
+                    ) : null,
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         "span",
                         { className: "total-price" },
                         "$",
-                        this.getPrice()
+                        this.getPriceTotal()
                     )
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -70466,7 +70499,36 @@ var ShoppingCartItem = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         "span",
                         null,
-                        this.state.item.name
+                        this.state.item.name,
+                        this.state.item.choices.length > 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            "div",
+                            { className: "sub-choice" },
+                            this.state.item.choices.map(function (choice, index) {
+                                //console.log("choice sub", choice);
+                                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    "div",
+                                    { key: "itemextra" + index },
+                                    choice.value
+                                );
+                            })
+                        ) : null,
+                        this.state.item.options.length > 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            "div",
+                            { className: "sub-option" },
+                            this.state.item.options.map(function (option, index) {
+                                //console.log("option sub", option);
+                                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    "div",
+                                    { key: "itemoption" + index },
+                                    option.option_value_name,
+                                    "  ",
+                                    "$",
+                                    option.price,
+                                    "X",
+                                    option.quantity
+                                );
+                            })
+                        ) : null
                     )
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -70481,8 +70543,7 @@ var ShoppingCartItem = function (_Component) {
                         quantity: this.state.item.quantity,
                         increase: this.increase,
                         decrease: this.decrease,
-                        mode: 2,
-                        key: "" + this.state.item.name + this.state.item.price + this.props.index
+                        mode: 2
                     })
                 )
             );

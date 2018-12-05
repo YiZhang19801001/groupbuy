@@ -21,8 +21,6 @@ export default class ChoicePannel extends Component {
     }
 
     componentDidMount() {
-        console.log("product: ", this.props.product);
-        console.log("shoppingCartList", this.props.shoppingCartList);
         this.setState({
             shoppingCartList: this.props.shoppingCartList,
             product: {
@@ -34,7 +32,6 @@ export default class ChoicePannel extends Component {
     }
 
     setChoice(choice) {
-        console.log("choice: ", choice);
         let flag = true;
         for (let index = 0; index < this.state.choices.length; index++) {
             if (this.state.choices[index].type === choice.type) {
@@ -49,7 +46,6 @@ export default class ChoicePannel extends Component {
     }
 
     setOption(option) {
-        console.log("option: ", option);
         let flag = true;
         for (let index = 0; index < this.state.options.length; index++) {
             if (this.state.options[index].type === option.option_value_name) {
@@ -66,14 +62,14 @@ export default class ChoicePannel extends Component {
     addToCart() {
         // todo:: check the existing list to determin add quantity or add new rows
         let orderItem = this.state.product;
-        console.log("orderItem", orderItem);
+
         orderItem.choices = this.state.choices;
         orderItem.options = this.state.options;
-        console.log("orderItem with options and choice: ", orderItem);
-        console.log("state shoppingCartList", this.state.shoppingCartList);
-        const newList = this.state.shoppingCartList.push(orderItem);
-        console.log("newList: ", newList);
-        this.props.updateShopCartList(newList);
+        orderItem.quantity = 1;
+
+        this.state.shoppingCartList.push(orderItem);
+
+        this.props.updateShopCartList(this.state.shoppingCartList);
         this.props.setChoicePannelStatus(false);
     }
 

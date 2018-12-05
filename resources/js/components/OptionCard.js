@@ -23,9 +23,9 @@ export default class OptionCard extends Component {
     setOption() {
         this.props.setOption({
             option_value_name: this.props.option.option_value_name,
-            price: this.props.option.price * this.state.quantity,
+            price: this.props.option.price,
             product_option_value_id: this.props.product_option_value_id,
-            quantity: this.state.quantity
+            quantity: this.state.quantity + 1
         });
     }
 
@@ -35,7 +35,7 @@ export default class OptionCard extends Component {
                 <span className="name">
                     {this.props.option.option_value_name}
                 </span>
-                <span className="price">{this.props.option.price}</span>
+                <span className="price">${this.props.option.price}</span>
                 {this.state.quantity > 0 ? (
                     <div className="quantity-control-pannel">
                         <i onClick={this.decrease} className="material-icons">

@@ -9,13 +9,13 @@ export default class OpitonGroup extends Component {
     }
 
     componentDidMount() {
-        console.log("option in props: ", this.props.option);
+        //console.log("option in props: ", this.props.option);
     }
 
     render() {
         return (
             <div className="option-group">
-                <div className="header">{this.props.option.option_name}</div>
+                <div className="header1">{this.props.option.option_name}</div>
                 <div className="options">
                     {this.props.option.option_values.map((option, index) => {
                         return (

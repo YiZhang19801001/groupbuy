@@ -208,6 +208,17 @@ body {
         left: 18px;
         background-color: $dark;
     }
+    .badge {
+        position: absolute;
+        color: $white;
+        background-color: $red;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        line-height: 15px;
+        bottom: 36px;
+        left: 47px;
+    }
     .left {
         width: 80%;
         background-color: $yellow;
@@ -330,8 +341,12 @@ body {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        line-height: 90px;
         flex: 3;
+        .sub-choice,
+        .sub-option {
+            color: $darkSubtitle;
+            font-size: 8px;
+        }
     }
     .item-price-quantity {
         flex: 1;
